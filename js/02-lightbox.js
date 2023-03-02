@@ -5,8 +5,6 @@ const galleryMarkup = createGalleryItemsMarkup(galleryItems);
 
 gallery.insertAdjacentHTML("afterbegin", galleryMarkup);
 
-gallery.addEventListener("click", handleOpenGalleryItem);
-
 function createGalleryItemsMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -17,21 +15,9 @@ function createGalleryItemsMarkup(galleryItems) {
     .join("");
 }
 
-function handleOpenGalleryItem(e) {
-  const target = e.target;
-
-  if (target.tagName !== "IMG") {
-    return;
-  }
-
-  let gallery = new SimpleLightbox(".gallery a", {
-    captionsData: "alt",
-    captionDelay: 250,
-  });
-
-  gallery.on("error.simplelightbox", function (e) {
-    console.log("No image found, go to the next/prev");
-  });
-}
+let lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
 
 console.log(galleryItems);
